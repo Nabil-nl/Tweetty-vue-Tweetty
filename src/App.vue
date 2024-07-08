@@ -1,5 +1,5 @@
 <template>
-    <div id="app" class="flex justify-center items-center h-screen">
+    <div id="app">
       <HelloWorld />
     </div>
   </template>
