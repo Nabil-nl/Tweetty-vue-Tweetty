@@ -1,0 +1,23 @@
+{
+    "tweets": [
+      {
+        "id": 1,
+        "user": "john_doe",
+        "content": "Hello, this is a tweet!",
+        "likes": 10,
+        "retweets": 2,
+        "responses": 5
+      }
+      
+    ],
+    "users": [
+      {
+        "id": 1,
+        "username": "john_doe",
+        "name": "John Doe",
+        "profile_image": "link_to_image"
+      }
+      
+    ]
+  }
+  
