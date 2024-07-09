@@ -33,7 +33,7 @@
                         <!-- Icon 4 -->
                     </a>
                 </div>
-                <button class="bg-blue-400 hover:bg-blue-600 text-white font-bold py-2 px-8 rounded-full">
+                <button class="bg-[#1DA1F2] hover:bg-[#1DA1F2] text-white font-bold py-2 px-8 rounded-full">
                     Tweet
                 </button>
             </div>
