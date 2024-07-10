@@ -1,8 +1,7 @@
 <template>
-  <div class=" fixed border-r bottom-1 border-gray-600 shadow-lg">
+  <sidebar class=" fixed bottom-1  ">
     <!-- Right Sidebar -->
-    <div
-      class="relative lg:right-[75px] lg:w-[436px] h-screen   left-[1100px]   flex flex-col justify-end">
+    <div class="relative lg:right-[75px] lg:w-[436px] h-screen   left-[1100px]   flex flex-col justify-end">
 
       <div class="  fixed flex flex-col  overflow-y-auto w-[290px] lg:w-[350px] h-screen">
         <!-- Search -->
@@ -16,12 +15,13 @@
               </path>
             </svg>
           </div>
+          <!-- /Search -->
+
           <input
-            class="w-full bg-gray-200 dark:bg-dim-400 border-gray-200 dark:border-dim-400 text-gray-100 focus:bg-gray-100 dark:focus:bg-dim-900 focus:outline-none focus:border focus:border-blue-200 font-normal h-9 flex items-center pl-12 text-sm rounded-full border shadow"
+            class="w-full bg-gray-200 dark:bg-dim-400 border-gray-200 dark:border-dim-400 text-black focus:bg-gray-100 dark:focus:bg-dim-900 focus:outline-none focus:border focus:border-blue-200 font-normal h-9 flex items-center pl-12 text-sm rounded-full border shadow"
             placeholder="Search Twitter" />
         </div>
-        <!-- /Search -->
-
+        
         <!-- What’s happening -->
         <div class="bg-[#f7f7f7] dark:bg-dim-700 rounded-2xl m-2">
           <h1 class="text-gray-900 dark:text-black text-md font-bold p-3 border-b border-gray-200 dark:border-dim-200">
@@ -71,11 +71,10 @@
             class="text-blue-400 text-sm font-normal p-3 border-b border-gray-200 dark:border-dim-200 hover:bg-gray-100 dark:hover:bg-dim-300 cursor-pointer transition duration-350 ease-in-out">
             <div class="flex flex-row justify-between p-2">
               <div class="flex flex-row">
-                <img class="w-10 h-10 rounded-full"
-                  src="https://pbs.twimg.com/profile_images/1308769664240160770/AfgzWVE7_normal.jpg" alt="Joe Biden" />
+                <img  class="inline-block h-10 w-10 rounded-full"   src="@/assets/images/n.png" alt="Image 1">
                 <div class="flex flex-col ml-2">
-                  <h1 class="text-gray-900 dark:text-white font-bold text-sm">Joe Biden</h1>
-                  <p class="text-gray-400 text-sm">@JoeBiden</p>
+                  <h1 class="text-gray-900 dark:text-black font-bold text-sm">TTT</h1>
+                  <p class="text-gray-400 text-sm">@TTT</p>
                 </div>
               </div>
               <div class="">
@@ -108,7 +107,7 @@
       </div>
     </div>
 
-  </div>
+  </sidebar>
 
 </template>
 
