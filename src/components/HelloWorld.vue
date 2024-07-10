@@ -1,7 +1,7 @@
 <template>
-    <div class="container  fixed h-full w-[34rem] top-0 left-0 bg-white border-r border-gray-600 shadow-lg z-50">
+    <div class="container fixed h-full w-[34rem] top-0 left-0 bg-white border-r border-gray-600 shadow-lg z-50">
         <section class="flex flex-col items-center ml-[190px]">
-            <a class="flex my-2  mr-[6.6rem] justify-center xl:justify-start"  href="#">
+            <a class="flex my-2  mr-[13rem] justify-center xl:justify-start"  href="#">
                 <svg viewBox="0 0 24 24" class="w-8 h-8 text-[#1DA1F2] " fill="currentColor">
                     <g>
                         <path
@@ -101,7 +101,7 @@
                     </svg>
                     <span class="hidden xl:block ml-4 font-bold text-md">More</span>
                 </a>
-                <button class="bg-[#1DA1F2] hover:bg-[#1DA1F2] text-white font-bold py-2 px-8 rounded-full w-[14rem]">
+                <button class="bg-[#1DA1F2] hover:bg-[#1DA1F2] text-white font-bold py-2 px-8 rounded-full w-[15rem]">
                     Tweet
                 </button>
 
