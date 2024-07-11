@@ -1,5 +1,5 @@
 <template>
-    <div class="container fixed h-full w-[34rem] top-0 left-0 bg-white border-r border-gray-600 shadow-lg z-50">
+    <div class="container fixed h-full w-[34rem] top-0 left-0 bg-white border-r border-[#bdbdbd] shadow-lg z-50">
         <section class="flex flex-col items-center ml-[190px]">
             <a class="flex my-2  mr-[13rem] justify-center xl:justify-start"  href="#">
                 <svg viewBox="0 0 24 24" class="w-8 h-8 text-[#1DA1F2] " fill="currentColor">
