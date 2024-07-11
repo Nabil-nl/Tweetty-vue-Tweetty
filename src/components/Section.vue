@@ -1,5 +1,6 @@
 <template>
-    <main class="flex justify-center mt-[-1rem]  w-[552px] max-w-screen-lg ml-[33.4rem] border-r border-gray-600 shadow-lg z-50">
+    <main
+        class="flex justify-center mt-[-1rem]  w-[552px] max-w-screen-lg ml-[33.4rem] border-r border-[#bdbdbd] shadow-lg z-50">
         <!-- Middle -->
         <div class="w-[550px] h-[47.5rem]  ">
             <!-- Header -->
@@ -26,16 +27,16 @@
             <div class="border border-gray-200 dark:border-dim-200 pb-4">
                 <div class="flex flex-shrink-0 p-4 pb-0">
                     <div class="w-12 flex items-top">
-                        <img  class="inline-block h-10 w-10 rounded-full"   src="@/assets/images/n.png" alt="Image 1">
+                        <img class="inline-block h-10 w-10 rounded-full" src="@/assets/images/n.png" alt="Image 1">
                     </div>
                     <div class="w-full p-2">
                         <textarea
                             class="dark:text-black text-gray-900 placeholder-gray-400 w-full h-10 bg-transparent border-0 focus:outline-none resize-none"
-                            placeholder="What's happening?"></textarea>
+                            placeholder="What's happening?" v-model="newTweetContent"></textarea>
                     </div>
                 </div>
                 <div class="w-full flex items-top p-2 text-white pl-14">
-                    <a href="#" class="text-blue-400 hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
+                    <a href="#" class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
                         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
                             <g>
                                 <path
@@ -46,7 +47,7 @@
                         </svg>
                     </a>
 
-                    <a href="#" class="text-blue-400 hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
+                    <a href="#" class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
                         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
                             <g>
                                 <path
@@ -59,7 +60,7 @@
                         </svg>
                     </a>
 
-                    <a href="#" class="text-blue-400 hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
+                    <a href="#" class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
                         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
                             <g>
                                 <path
@@ -69,7 +70,7 @@
                         </svg>
                     </a>
 
-                    <a href="#" class="text-blue-400 hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
+                    <a href="#" class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
                         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
                             <g>
                                 <path
@@ -84,7 +85,7 @@
                         </svg>
                     </a>
 
-                    <a href="#" class="text-blue-400 hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
+                    <a href="#" class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
                         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
                             <g>
                                 <path d="M-37.9 18c-.1-.1-.1-.1-.1-.2.1 0 .1.1.1.2z"></path>
@@ -101,21 +102,185 @@
                         </svg>
                     </a>
 
-                    <a href="#" class="bg-blue-400 hover:bg-blue-500 text-white rounded-full py-1 px-4 ml-auto mr-1">
+                    <a href="#" class="bg-[#1DA1F2] hover:bg-[#1DA1F2] text-white rounded-full py-1 px-4 ml-auto mr-1"
+                        @click="postTweet">
                         <span class="font-bold text-sm">Tweet</span>
                     </a>
                 </div>
             </div>
+            <!-- Display Tweets -->
+            <div class="mt-4">
+                <div v-for="tweet in tweets" :key="tweet.id"
+                    class="border-b border-gray-200 dark:border-dim-200 py-3 px-4">
+                    <div class="flex items-center">
+                        <!-- User Avatar -->
+                        <img class="inline-block h-10 w-10 rounded-full" src="@/assets/images/n.png" alt="Image 1">
+
+                        <!-- Tweet Content -->
+                        <div class="ml-3 flex-1">
+                            <h3 class="font-bold text-gray-800 dark:text-black">{{ tweet.user }}</h3>
+                            <p class="text-gray-600 dark:text-gray-400">{{ tweet.content }}</p>
+                        </div>
+                    </div>
+
+                    <!-- Action Icons Container (Centered) -->
+                    <div class="flex justify-center mt-3 space-x-4">
+                        <!-- Like Icon -->
+                        <div>
+                            <a @click="toggleLike(tweet.id)"
+                                class="group flex items-center text-[#f72585] px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-[#f7f7f7] hover:text-[#f72585]">
+                                <svg class="h-6 w-6" :class="{ 'text-blue-500': isLiked(tweet.id) }" fill="none"
+                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z">
+                                    </path>
+                                </svg>
+                                <span class="ml-2">{{ tweet.likes }}</span>
+                            </a>
+                        </div>
+
+                        <!-- Retweet Icon -->
+                        <div>
+                            <a @click="retweet(tweet.id)"
+                                class="group flex items-center text-[#35ff69] px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-[#f7f7f7] hover:text-[#35ff69]">
+                                <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4"></path>
+                                </svg>
+                                <span class="ml-2">{{ tweet.retweets }}</span>
+                            </a>
+                        </div>
+
+                        <!-- Response Icon -->
+                        <div>
+                            <a @click="respond(tweet.id)" class="group flex items-center text-[#01baef] px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-[#f7f7f7] hover:text-[#01baef]">
+                                <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path
+                                        d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                                    </path>
+                                </svg>
+                                <span class="ml-2">{{ tweet.responses }}</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
         </div>
     </main>
 </template>
 
+
 <script>
+import axios from 'axios';
+
 export default {
     name: "Section",
+    data() {
+        return {
+            tweets: [],
+            users: [],
+            newTweetContent: "",
+            likedTweets: [] // Track liked tweets
+        };
+    },
+    created() {
+        this.fetchTweets();
+        this.fetchUsers();
+    },
+    methods: {
+        fetchTweets() {
+            axios.get('http://localhost:3000/tweets')
+                .then(response => {
+                    this.tweets = response.data;
+                })
+                .catch(error => {
+                    console.error("There was an error fetching the tweets:", error);
+                });
+        },
+        fetchUsers() {
+            axios.get('http://localhost:3000/users')
+                .then(response => {
+                    this.users = response.data;
+                })
+                .catch(error => {
+                    console.error("There was an error fetching the users:", error);
+                });
+        },
+        getUserProfileImage(username) {
+            const user = this.users.find(user => user.username === username);
+            return user ? user.profile_image : '@/assets/images/default_profile.jpg';
+        },
+        postTweet() {
+            if (this.newTweetContent.trim() !== "") {
+                const newTweet = {
+                    id: (this.tweets.length + 1).toString(),
+                    user: "TTT",
+                    content: this.newTweetContent,
+                    likes: 0,
+                    retweets: 0,
+                    responses: 0
+                };
+                axios.post('http://localhost:3000/tweets', newTweet)
+                    .then(response => {
+                        this.tweets.unshift(response.data);
+                        this.newTweetContent = "";
+                    })
+                    .catch(error => {
+                        console.error("There was an error posting the tweet:", error);
+                    });
+            }
+        },
+        toggleLike(tweetId) {
+            const tweet = this.tweets.find(t => t.id === tweetId);
+            if (!tweet) return;
+
+            if (this.isLiked(tweetId)) {
+                tweet.likes--;
+                this.likedTweets = this.likedTweets.filter(id => id !== tweetId);
+            } else {
+                tweet.likes++;
+                this.likedTweets.push(tweetId);
+            }
+
+            // Update the tweet likes on the server
+            axios.put(`http://localhost:3000/tweets/${tweetId}`, tweet)
+                .catch(error => {
+                    console.error("There was an error updating the tweet:", error);
+                });
+        },
+        isLiked(tweetId) {
+            return this.likedTweets.includes(tweetId);
+        },
+        retweet(tweetId) {
+            const tweet = this.tweets.find(t => t.id === tweetId);
+            if (!tweet) return;
+
+            tweet.retweets++;
+
+            // Update the tweet retweets on the server
+            axios.put(`http://localhost:3000/tweets/${tweetId}`, tweet)
+                .catch(error => {
+                    console.error("There was an error updating the tweet:", error);
+                });
+        },
+        respond(tweetId) {
+            const tweet = this.tweets.find(t => t.id === tweetId);
+            if (!tweet) return;
+
+            tweet.responses++;
+
+            // Update the tweet responses on the server
+            axios.put(`http://localhost:3000/tweets/${tweetId}`, tweet)
+                .catch(error => {
+                    console.error("There was an error updating the tweet:", error);
+                });
+        }
+    }
 };
 </script>
 
-<style scoped>
-/* Scoped styles if needed */
-</style>
+<style scoped></style>
