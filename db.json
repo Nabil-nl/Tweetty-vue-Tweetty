@@ -4,9 +4,9 @@
       "id": "1",
       "user": "TTT",
       "content": "Hello, this is a tweet!",
-      "likes": 16,
-      "retweets": 15,
-      "responses": 16
+      "likes": 22,
+      "retweets": 21,
+      "responses": 24
     }
   ],
   "users": [
@@ -14,7 +14,7 @@
       "id": "1",
       "username": "TTT",
       "name": "TTT",
-      "profile_image": "link_to_image"
+      "profile_image": "link_to_profile_image"
     }
   ]
 }

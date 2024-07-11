@@ -1,7 +1,7 @@
 <template>
   <sidebar class=" fixed bottom-1  ">
     <!-- Right Sidebar -->
-    <div class="relative lg:right-[75px] lg:w-[436px] h-screen   left-[1100px]   flex flex-col justify-end">
+    <div class="relative lg:right-[75px] lg:w-[436px] h-screen   left-[1088px]   flex flex-col justify-end">
 
       <div class="  fixed flex flex-col  overflow-y-auto w-[290px] lg:w-[350px] h-screen">
         <!-- Search -->

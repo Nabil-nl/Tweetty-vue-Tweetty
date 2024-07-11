@@ -1,6 +1,6 @@
 <template>
     <main
-        class="flex justify-center mt-[-1rem]  w-[552px] max-w-screen-lg ml-[33.4rem] border-r border-[#bdbdbd] shadow-lg z-50">
+        class="flex justify-center mt-[-1rem]  w-[590px] max-w-screen-lg ml-[29.4rem] border-r border-[#bdbdbd] shadow-lg z-50">
         <!-- Middle -->
         <div class="w-[550px] h-[47.5rem]  ">
             <!-- Header -->
@@ -36,16 +36,15 @@
                     </div>
                 </div>
                 <div class="w-full flex items-top p-2 text-white pl-14">
-                    <a href="#" class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
-                        <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
-                            <g>
-                                <path
-                                    d="M19.75 2H4.25C3.01 2 2 3.01 2 4.25v15.5C2 20.99 3.01 22 4.25 22h15.5c1.24 0 2.25-1.01 2.25-2.25V4.25C22 3.01 20.99 2 19.75 2zM4.25 3.5h15.5c.413 0 .75.337.75.75v9.676l-3.858-3.858c-.14-.14-.33-.22-.53-.22h-.003c-.2 0-.393.08-.532.224l-4.317 4.384-1.813-1.806c-.14-.14-.33-.22-.53-.22-.193-.03-.395.08-.535.227L3.5 17.642V4.25c0-.413.337-.75.75-.75zm-.744 16.28l5.418-5.534 6.282 6.254H4.25c-.402 0-.727-.322-.744-.72zm16.244.72h-2.42l-5.007-4.987 3.792-3.85 4.385 4.384v3.703c0 .413-.337.75-.75.75z">
-                                </path>
-                                <circle cx="8.868" cy="8.309" r="1.542"></circle>
-                            </g>
-                        </svg>
-                    </a>
+                    <a href="#" @click.prevent="triggerFileInput" class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
+      <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
+        <g>
+          <path d="M19.75 2H4.25C3.01 2 2 3.01 2 4.25v15.5C2 20.99 3.01 22 4.25 22h15.5c1.24 0 2.25-1.01 2.25-2.25V4.25C22 3.01 20.99 2 19.75 2zM4.25 3.5h15.5c.413 0 .75.337.75.75v9.676l-3.858-3.858c-.14-.14-.33-.22-.53-.22h-.003c-.2 0-.393.08-.532.224l-4.317 4.384-1.813-1.806c-.14-.14-.33-.22-.53-.22-.193-.03-.395.08-.535.227L3.5 17.642V4.25c0-.413.337-.75.75-.75zm-.744 16.28l5.418-5.534 6.282 6.254H4.25c-.402 0-.727-.322-.744-.72zm16.244.72h-2.42l-5.007-4.987 3.792-3.85 4.385 4.384v3.703c0 .413-.337.75-.75.75z"></path>
+          <circle cx="8.868" cy="8.309" r="1.542"></circle>
+        </g>
+      </svg>
+    </a>
+    <input type="file" ref="fileInput" @change="handleFileUpload" class="hidden" />
 
                     <a href="#" class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
                         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
@@ -129,7 +128,7 @@
                         <div>
                             <a @click="toggleLike(tweet.id)"
                                 class="group flex items-center text-[#f72585] px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-[#f7f7f7] hover:text-[#f72585]">
-                                <svg class="h-6 w-6" :class="{ 'text-blue-500': isLiked(tweet.id) }" fill="none"
+                                <svg class="h-6 w-6" :class="{ 'text-[#f72585]': isLiked(tweet.id) }" fill="none"
                                     stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     stroke="currentColor" viewBox="0 0 24 24">
                                     <path
@@ -154,7 +153,8 @@
 
                         <!-- Response Icon -->
                         <div>
-                            <a @click="respond(tweet.id)" class="group flex items-center text-[#01baef] px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-[#f7f7f7] hover:text-[#01baef]">
+                            <a @click="respond(tweet.id)"
+                                class="group flex items-center text-[#01baef] px-3 py-2 text-base leading-6 font-medium rounded-full hover:bg-[#f7f7f7] hover:text-[#01baef]">
                                 <svg class="h-6 w-6" fill="none" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" stroke="currentColor" viewBox="0 0 24 24">
                                     <path
@@ -184,7 +184,8 @@ export default {
             tweets: [],
             users: [],
             newTweetContent: "",
-            likedTweets: [] // Track liked tweets
+            likedTweets: [],
+            selectedFile: null
         };
     },
     created() {
@@ -224,15 +225,34 @@ export default {
                     retweets: 0,
                     responses: 0
                 };
-                axios.post('http://localhost:3000/tweets', newTweet)
-                    .then(response => {
-                        this.tweets.unshift(response.data);
-                        this.newTweetContent = "";
-                    })
-                    .catch(error => {
-                        console.error("There was an error posting the tweet:", error);
-                    });
+                
+                if (this.selectedFile) {
+                    const formData = new FormData();
+                    formData.append('file', this.selectedFile);
+                    // Assuming your server can handle multipart/form-data
+                    axios.post('http://localhost:3000/upload', formData)
+                        .then(response => {
+                            newTweet.image = response.data.filePath; // Assuming the server responds with the file path
+                            this.saveTweet(newTweet);
+                        })
+                        .catch(error => {
+                            console.error("There was an error uploading the image:", error);
+                        });
+                } else {
+                    this.saveTweet(newTweet);
+                }
             }
+        },
+        saveTweet(tweet) {
+            axios.post('http://localhost:3000/tweets', tweet)
+                .then(response => {
+                    this.tweets.unshift(response.data);
+                    this.newTweetContent = "";
+                    this.selectedFile = null; // Reset the file input
+                })
+                .catch(error => {
+                    console.error("There was an error posting the tweet:", error);
+                });
         },
         toggleLike(tweetId) {
             const tweet = this.tweets.find(t => t.id === tweetId);
@@ -278,9 +298,23 @@ export default {
                 .catch(error => {
                     console.error("There was an error updating the tweet:", error);
                 });
+        },
+        triggerFileInput() {
+            this.$refs.fileInput.click();
+        },
+        handleFileUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                this.selectedFile = file;
+                console.log('File selected:', file);
+            }
         }
     }
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.hidden {
+    display: none;
+}
+</style>
