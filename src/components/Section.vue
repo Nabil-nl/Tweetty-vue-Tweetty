@@ -64,6 +64,7 @@
                             </g>
                         </svg>
                     </a>
+                    
 
                     <a href="#" class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
                         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
@@ -177,8 +178,6 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
     </main>
 </template>
