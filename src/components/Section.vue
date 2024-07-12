@@ -36,17 +36,23 @@
                     </div>
                 </div>
                 <div class="w-full flex items-top p-2 text-white pl-14">
-                    <a href="#" @click.prevent="triggerFileInput" class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
-      <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
-        <g>
-          <path d="M19.75 2H4.25C3.01 2 2 3.01 2 4.25v15.5C2 20.99 3.01 22 4.25 22h15.5c1.24 0 2.25-1.01 2.25-2.25V4.25C22 3.01 20.99 2 19.75 2zM4.25 3.5h15.5c.413 0 .75.337.75.75v9.676l-3.858-3.858c-.14-.14-.33-.22-.53-.22h-.003c-.2 0-.393.08-.532.224l-4.317 4.384-1.813-1.806c-.14-.14-.33-.22-.53-.22-.193-.03-.395.08-.535.227L3.5 17.642V4.25c0-.413.337-.75.75-.75zm-.744 16.28l5.418-5.534 6.282 6.254H4.25c-.402 0-.727-.322-.744-.72zm16.244.72h-2.42l-5.007-4.987 3.792-3.85 4.385 4.384v3.703c0 .413-.337.75-.75.75z"></path>
-          <circle cx="8.868" cy="8.309" r="1.542"></circle>
-        </g>
-      </svg>
-    </a>
-    <input type="file" ref="fileInput" @change="handleFileUpload" class="hidden" />
-
-                    <a href="#" class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
+                    <!-- add images  -->
+                    <a href="#" @click.prevent="triggerFileInput"
+                        class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
+                        <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
+                            <g>
+                                <path
+                                    d="M19.75 2H4.25C3.01 2 2 3.01 2 4.25v15.5C2 20.99 3.01 22 4.25 22h15.5c1.24 0 2.25-1.01 2.25-2.25V4.25C22 3.01 20.99 2 19.75 2zM4.25 3.5h15.5c.413 0 .75.337.75.75v9.676l-3.858-3.858c-.14-.14-.33-.22-.53-.22h-.003c-.2 0-.393.08-.532.224l-4.317 4.384-1.813-1.806c-.14-.14-.33-.22-.53-.22-.193-.03-.395.08-.535.227L3.5 17.642V4.25c0-.413.337-.75.75-.75zm-.744 16.28l5.418-5.534 6.282 6.254H4.25c-.402 0-.727-.322-.744-.72zm16.244.72h-2.42l-5.007-4.987 3.792-3.85 4.385 4.384v3.703c0 .413-.337.75-.75.75z">
+                                </path>
+                                <circle cx="8.868" cy="8.309" r="1.542"></circle>
+                            </g>
+                        </svg>
+                    </a>
+                    <!-- Hidden file input -->
+                    <input type="file" ref="fileInput" @change="handleFileUpload" class="hidden" />
+                    <!-- add gif  -->
+                    <a href="#" @click="fetchGif"
+                        class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
                         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
                             <g>
                                 <path
@@ -68,7 +74,7 @@
                             </g>
                         </svg>
                     </a>
-
+                    <!-- add emoji  -->
                     <a href="#" class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
                         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
                             <g>
@@ -83,7 +89,7 @@
                             </g>
                         </svg>
                     </a>
-
+                    <!-- add dates  -->
                     <a href="#" class="text-[#1DA1F2] hover:bg-blue-50 dark:hover:bg-dim-800 rounded-full p-2">
                         <svg viewBox="0 0 24 24" class="w-5 h-5" fill="currentColor">
                             <g>
@@ -164,6 +170,10 @@
                                 <span class="ml-2">{{ tweet.responses }}</span>
                             </a>
                         </div>
+                        <!-- Display fetched GIF -->
+                        <div v-if="gifUrl" class="mt-4">
+                            <img :src="gifUrl" alt="GIF" class="w-48 h-48 rounded-md">
+                        </div>
                     </div>
                 </div>
             </div>
@@ -185,7 +195,8 @@ export default {
             users: [],
             newTweetContent: "",
             likedTweets: [],
-            selectedFile: null
+            selectedFile: null,
+            gifUrl: ''  // Add this line to store the fetched GIF URL
         };
     },
     created() {
@@ -225,14 +236,13 @@ export default {
                     retweets: 0,
                     responses: 0
                 };
-                
+
                 if (this.selectedFile) {
                     const formData = new FormData();
                     formData.append('file', this.selectedFile);
-                    // Assuming your server can handle multipart/form-data
                     axios.post('http://localhost:3000/upload', formData)
                         .then(response => {
-                            newTweet.image = response.data.filePath; // Assuming the server responds with the file path
+                            newTweet.image = response.data.filePath;
                             this.saveTweet(newTweet);
                         })
                         .catch(error => {
@@ -248,7 +258,7 @@ export default {
                 .then(response => {
                     this.tweets.unshift(response.data);
                     this.newTweetContent = "";
-                    this.selectedFile = null; // Reset the file input
+                    this.selectedFile = null;
                 })
                 .catch(error => {
                     console.error("There was an error posting the tweet:", error);
@@ -266,7 +276,6 @@ export default {
                 this.likedTweets.push(tweetId);
             }
 
-            // Update the tweet likes on the server
             axios.put(`http://localhost:3000/tweets/${tweetId}`, tweet)
                 .catch(error => {
                     console.error("There was an error updating the tweet:", error);
@@ -281,7 +290,6 @@ export default {
 
             tweet.retweets++;
 
-            // Update the tweet retweets on the server
             axios.put(`http://localhost:3000/tweets/${tweetId}`, tweet)
                 .catch(error => {
                     console.error("There was an error updating the tweet:", error);
@@ -293,7 +301,6 @@ export default {
 
             tweet.responses++;
 
-            // Update the tweet responses on the server
             axios.put(`http://localhost:3000/tweets/${tweetId}`, tweet)
                 .catch(error => {
                     console.error("There was an error updating the tweet:", error);
@@ -308,10 +315,23 @@ export default {
                 this.selectedFile = file;
                 console.log('File selected:', file);
             }
+        },
+        fetchGif() {
+            const apiKey = ''; // Replace with your Giphy API key
+            const query = 'funny'; // Replace with your desired search query
+
+            axios.get(`https://api.giphy.com/v1/gifs/random?api_key=${apiKey}&tag=${query}`)
+                .then(response => {
+                    this.gifUrl = response.data.data.images.original.url;
+                })
+                .catch(error => {
+                    console.error("There was an error fetching the GIF:", error);
+                });
         }
     }
 };
 </script>
+
 
 <style scoped>
 .hidden {

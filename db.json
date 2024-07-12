@@ -3,10 +3,11 @@
     {
       "id": "1",
       "user": "TTT",
-      "content": "Hello, this is a tweet!",
-      "likes": 22,
-      "retweets": 21,
-      "responses": 24
+      "content": "TEST THIS TEST ",
+      "likes": 1,
+      "retweets": 13,
+      "responses": 96,
+      "gifUrl": "link_to_gif"
     }
   ],
   "users": [
