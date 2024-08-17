@@ -120,7 +120,7 @@
                     class="border-b border-gray-200 dark:border-dim-200 py-3 px-4">
                     <div class="flex items-center">
                         <!-- User Avatar -->
-                        <img class="inline-block h-10 w-10 rounded-full" src="@/assets/images/n.png" alt="Image 1">
+                        <img class="inline-block h-10 w-10 rounded-full" src="@/assets/images/palestine.png" alt="Image 1">
 
                         <!-- Tweet Content -->
                         <div class="ml-3 flex-1">
