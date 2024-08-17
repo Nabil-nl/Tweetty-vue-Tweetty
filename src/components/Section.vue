@@ -27,7 +27,7 @@
             <div class="border border-gray-200 dark:border-dim-200 pb-4">
                 <div class="flex flex-shrink-0 p-4 pb-0">
                     <div class="w-12 flex items-top">
-                        <img class="inline-block h-10 w-10 rounded-full" src="@/assets/images/n.png" alt="Image 1">
+                        <img class="inline-block h-10 w-10 rounded-full" src="@/assets/images/palestine.png" alt="Image 1">
                     </div>
                     <div class="w-full p-2">
                         <textarea

@@ -1,20 +1,20 @@
 <template>
     <div id="app">
-      <HelloWorld />
+      <Sidebar />
       <Section />
       <Right />
     </div>
   </template>
   
   <script>
-  import HelloWorld from './components/HelloWorld.vue';
+  import Sidebar from './components/Sidebar.vue';
   import Section from './components/Section.vue';
   import Right from './components/Right.vue';
   
   export default {
     name: 'App',
     components: {
-      HelloWorld,
+      Sidebar,
       Section,
       Right
     }

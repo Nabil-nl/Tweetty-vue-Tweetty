@@ -71,7 +71,7 @@
             class="text-blue-400 text-sm font-normal p-3 border-b border-gray-200 dark:border-dim-200 hover:bg-gray-100 dark:hover:bg-dim-300 cursor-pointer transition duration-350 ease-in-out">
             <div class="flex flex-row justify-between p-2">
               <div class="flex flex-row">
-                <img  class="inline-block h-10 w-10 rounded-full"   src="@/assets/images/n.png" alt="Image 1">
+                <img  class="inline-block h-10 w-10 rounded-full"   src="@/assets/images/palestine.png" alt="Image 1">
                 <div class="flex flex-col ml-2">
                   <h1 class="text-gray-900 dark:text-black font-bold text-sm">TTT</h1>
                   <p class="text-gray-400 text-sm">@TTT</p>
